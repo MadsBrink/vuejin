@@ -1,14 +1,13 @@
 <template>
     <div class="design">
         <h3 class="mb-20">Form Elements:</h3>
-        <component
+        <component :error="''"
             v-for="element in formElements"
-            :key="element.id"
             v-model="element.model"
+            :key="element.id"
             :is="element.type"
-            :label="element.type"
-            :element="element"
-            :error="'Some error message'" />
+            :label="element.label"
+            :element="element" />
     </div>
 </template>
 
@@ -28,18 +27,30 @@ export default {
         return {
             formElements: [
                 {
-                    id: 1, type: 'Textfield', model: '', placeholder: 'Hallo textfield!',
+                    id: 1,
+                    type: 'Textfield',
+                    model: '',
+                    label: 'textfield label',
+                    info: 'This is a info text',
+                    placeholder: 'Hallo textfield!',
                 },
-                { id: 2, type: 'Checkbox', model: true },
                 {
-                    id: 3,
+                    id: 2,
                     type: 'CheckboxGroup',
                     model: [],
+                    label: 'CheckboxGroup label',
+                    info: 'This is a info text',
                     options: [
                         { label: 'Option 1', value: 'opt1' },
                         { label: 'Option 2', value: 'opt2' },
                         { label: 'Option 3', value: 'opt3' },
                     ],
+                },
+                {
+                    id: 3,
+                    type: 'Checkbox',
+                    model: true,
+                    label: 'Checkbox label',
                 },
             ],
         };

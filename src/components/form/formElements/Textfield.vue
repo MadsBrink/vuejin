@@ -1,7 +1,9 @@
 <template>
-    <div class="form-element-wrapper" :class="{ error }">
+    <div class="form-element" :class="fieldStatus ? fieldStatus.type : ''">
         <!-- Input -->
-        <label>{{ label }}</label>
+        <label class="form-element-label">
+            {{ label }}
+        </label>
         <input
             type="text"
             v-bind="$attrs"
@@ -9,32 +11,31 @@
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)" />
 
-        <!-- Error -->
-        <template v-if="error">
-            <span class="error-message">{{error}}</span>
-            <span class="error-icon icon-notification"></span>
-        </template>
+        <!-- Status Message -->
+        <span class="form-element-status" v-if="fieldStatus">
+            <span class="form-element-status-icon" :class="fieldStatus.icon"></span>
+            <span class="form-element-status-text">{{ fieldStatus.text }}</span>
+        </span>
     </div>
 </template>
 
 <script>
+import { fieldStatus } from '../formMixin';
+
 export default {
     name: 'Textfield',
     props: {
-        modelValue: {
-            type: String,
-        },
+        modelValue: String,
+        label: String,
+        error: String,
+        warning: String,
+        disabled: Boolean,
         element: {
             type: Object,
             required: true,
         },
-        label: {
-            type: String,
-        },
-        error: {
-            type: String,
-        },
     },
+    mixins: [fieldStatus],
 };
 </script>
 
