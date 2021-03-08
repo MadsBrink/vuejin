@@ -1,5 +1,4 @@
 <template>
-    <header>Header</header>
     <router-view />
 </template>
 
@@ -7,6 +6,7 @@
     @import "./components/form/formStyling.scss";
     @import "./assets/icons/style.css";
     @import "./scss/utils.scss";
+    @import "./scss/animations.scss";
 
     // Reset CSS
     html {

@@ -1,13 +1,32 @@
 <template>
     <div class="design">
         <h3 class="mb-20">Form Elements:</h3>
-        <component :error="'123'"
-            v-for="element in formElements"
+        <component
+            v-for="(element, i) in formElements"
             v-model="element.model"
-            :key="element.id"
+            :key="i"
             :is="element.type"
             :label="element.label"
             :element="element" />
+        <h3 class="mb-20">Buttons:</h3>
+        <div v-for="(buttonGroup, i) in buttonGroups" :key="i">
+            <h5>{{buttonGroup.label}}</h5>
+            <base-button class="mr-20 mb-20"
+                v-for="(button, i) in buttonGroup.buttons"
+                :key="i"
+                :loading="button.loading"
+                :type="buttonGroup.type"
+                :size="button.size"
+                :label="button.label"
+                :icon="button.icon" />
+        </div>
+        <h3 class="mb-20">Loaders:</h3>
+        <h5>Small</h5>
+        <base-loader size="small" />
+        <h5>Normal</h5>
+        <base-loader size="normal" />
+        <h5>Large</h5>
+        <base-loader size="large" />
     </div>
 </template>
 
@@ -15,19 +34,22 @@
 import Textfield from '@/components/form/formElements/Textfield.vue';
 import Checkbox from '@/components/form/formElements/Checkbox.vue';
 import CheckboxGroup from '@/components/form/formElements/CheckboxGroup.vue';
+import BaseButton from '@/components/base/BaseButton.vue';
+import BaseLoader from '@/components/base/BaseLoader.vue';
 
 export default {
-    name: 'Home',
+    name: 'Design',
     components: {
         Textfield,
         Checkbox,
         CheckboxGroup,
+        BaseButton,
+        BaseLoader,
     },
     data() {
         return {
             formElements: [
                 {
-                    id: 1,
                     type: 'Textfield',
                     model: '',
                     label: 'textfield label',
@@ -35,7 +57,6 @@ export default {
                     placeholder: 'Hallo textfield!',
                 },
                 {
-                    id: 2,
                     type: 'CheckboxGroup',
                     model: [],
                     label: 'CheckboxGroup label',
@@ -47,11 +68,60 @@ export default {
                     ],
                 },
                 {
-                    id: 3,
                     type: 'Checkbox',
                     model: true,
                     label: 'Checkbox label',
                     info: 'This is a info text',
+                },
+            ],
+            buttonGroups: [
+                {
+                    label: 'Primary',
+                    type: 'primary',
+                    buttons: [
+                        { label: 'Base Button', icon: 'icon-compass' },
+                        { label: 'Base Button', loading: true },
+                        { label: 'Base Button' },
+                        { label: 'Base Button', icon: 'icon-compass', size: 'small' },
+                        { label: 'Base Button', loading: true, size: 'small' },
+                        { label: 'Base Button', size: 'small' },
+                    ],
+                },
+                {
+                    label: 'Secondary',
+                    type: 'secondary',
+                    buttons: [
+                        { label: 'Base Button', icon: 'icon-headphones' },
+                        { label: 'Base Button', loading: true },
+                        { label: 'Base Button' },
+                        { label: 'Base Button', icon: 'icon-headphones', size: 'small' },
+                        { label: 'Base Button', loading: true, size: 'small' },
+                        { label: 'Base Button', size: 'small' },
+                    ],
+                },
+                {
+                    label: 'Tertiary',
+                    type: 'tertiary',
+                    buttons: [
+                        { label: 'Base Button', icon: 'icon-bubble' },
+                        { label: 'Base Button', loading: true },
+                        { label: 'Base Button' },
+                        { label: 'Base Button', icon: 'icon-bubble', size: 'small' },
+                        { label: 'Base Button', loading: true, size: 'small' },
+                        { label: 'Base Button', size: 'small' },
+                    ],
+                },
+                {
+                    label: 'Delete',
+                    type: 'delete',
+                    buttons: [
+                        { label: 'Base Button', icon: 'icon-bin' },
+                        { label: 'Base Button', loading: true },
+                        { label: 'Base Button' },
+                        { label: 'Base Button', icon: 'icon-bin', size: 'small' },
+                        { label: 'Base Button', loading: true, size: 'small' },
+                        { label: 'Base Button', size: 'small' },
+                    ],
                 },
             ],
         };

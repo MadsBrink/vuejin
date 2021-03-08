@@ -35,7 +35,3 @@ export default {
     mixins: [fieldStatus],
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>
