@@ -4,17 +4,19 @@
         <label class="form-element-label">
             {{ label }}
         </label>
-        <div class="form-element-checkbox"
+        <label class="form-element-checkbox"
             v-for="option in element.options"
             :key="option.value">
             <input
                 type="checkbox"
                 :value="option.value"
                 v-model="groupModel" />
-            <label>
-                {{ option.label }}
-            </label>
-        </div>
+            <svg width="20px" height="20px" viewBox="0 0 18 18">
+                <polyline points="3 9 7 14 15 4"></polyline>
+            </svg>
+            <div></div>
+            <span>{{ option.label }}</span>
+        </label>
 
         <!-- Status Message -->
         <span class="form-element-status" v-if="fieldStatus">
@@ -30,15 +32,12 @@ import { fieldStatus } from '../formMixin';
 export default {
     name: 'CheckboxGroup',
     props: {
-        modelValue: String,
+        modelValue: Array,
         label: String,
         error: String,
         warning: String,
         disabled: Boolean,
-        element: {
-            type: Object,
-            required: true,
-        },
+        element: Object,
     },
     mixins: [fieldStatus],
     computed: {

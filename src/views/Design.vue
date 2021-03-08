@@ -1,7 +1,7 @@
 <template>
     <div class="design">
         <h3 class="mb-20">Form Elements:</h3>
-        <component :error="''"
+        <component :error="'123'"
             v-for="element in formElements"
             v-model="element.model"
             :key="element.id"
@@ -51,6 +51,7 @@ export default {
                     type: 'Checkbox',
                     model: true,
                     label: 'Checkbox label',
+                    info: 'This is a info text',
                 },
             ],
         };

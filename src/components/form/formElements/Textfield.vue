@@ -30,10 +30,7 @@ export default {
         error: String,
         warning: String,
         disabled: Boolean,
-        element: {
-            type: Object,
-            required: true,
-        },
+        element: Object,
     },
     mixins: [fieldStatus],
 };
