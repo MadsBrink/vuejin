@@ -137,7 +137,19 @@ input {
     font-size: 14px;
     color: $black;
     padding: 0 0 10px;
+    background-color: $white;
     &::placeholder {
         color: $grey-medium;
     }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+input:-webkit-autofill::first-line {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
 }

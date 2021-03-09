@@ -5,7 +5,7 @@
             {{ label }}
         </label>
         <label class="form-element-checkbox"
-            v-for="option in element.options"
+            v-for="option in options"
             :key="option.value">
             <input
                 type="checkbox"
@@ -36,8 +36,9 @@ export default {
         label: String,
         error: String,
         warning: String,
+        info: String,
         disabled: Boolean,
-        element: Object,
+        options: Array,
     },
     mixins: [fieldStatus],
     computed: {

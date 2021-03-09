@@ -7,7 +7,9 @@
             :key="i"
             :is="element.type"
             :label="element.label"
-            :element="element" />
+            :info="element.info"
+            :placeholder="element.placeholder"
+            :options="element.options" />
         <h3 class="mb-20">Buttons:</h3>
         <div v-for="(buttonGroup, i) in buttonGroups" :key="i">
             <h5>{{buttonGroup.label}}</h5>
@@ -31,18 +33,18 @@
 </template>
 
 <script>
-import Textfield from '@/components/form/formElements/Textfield.vue';
-import Checkbox from '@/components/form/formElements/Checkbox.vue';
-import CheckboxGroup from '@/components/form/formElements/CheckboxGroup.vue';
+import FormTextfield from '@/components/form/formElements/FormTextfield.vue';
+import FormCheckbox from '@/components/form/formElements/FormCheckbox.vue';
+import FormCheckboxGroup from '@/components/form/formElements/FormCheckboxGroup.vue';
 import BaseButton from '@/components/base/BaseButton.vue';
 import BaseLoader from '@/components/base/BaseLoader.vue';
 
 export default {
     name: 'Design',
     components: {
-        Textfield,
-        Checkbox,
-        CheckboxGroup,
+        FormTextfield,
+        FormCheckbox,
+        FormCheckboxGroup,
         BaseButton,
         BaseLoader,
     },
@@ -50,14 +52,14 @@ export default {
         return {
             formElements: [
                 {
-                    type: 'Textfield',
+                    type: 'FormTextfield',
                     model: '',
                     label: 'textfield label',
                     info: 'This is a info text',
                     placeholder: 'Hallo textfield!',
                 },
                 {
-                    type: 'CheckboxGroup',
+                    type: 'FormCheckboxGroup',
                     model: [],
                     label: 'CheckboxGroup label',
                     info: 'This is a info text',
@@ -68,7 +70,7 @@ export default {
                     ],
                 },
                 {
-                    type: 'Checkbox',
+                    type: 'FormCheckbox',
                     model: true,
                     label: 'Checkbox label',
                     info: 'This is a info text',

@@ -1,12 +1,53 @@
 <template>
-    <router-view />
+    <header v-if="displayHeader"
+        :style="themeColors" >
+    </header>
+    <div class="main-container"
+        :class="{ header: displayHeader }"
+        :style="themeColors">
+        <router-view />
+    </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            headerLessRoutes: ['Login'],
+        };
+    },
+    computed: {
+        themeColors() {
+            return {
+                '--primary': '#3986af',
+                '--secondary': '#666',
+            };
+        },
+        displayHeader() {
+            return !this.headerLessRoutes.includes(this.$route.name);
+        },
+    },
+};
+</script>
 
 <style lang="scss">
     @import "./components/form/formStyling.scss";
-    @import "./assets/icons/style.css";
+    @import "./scss/typografi.scss";
     @import "./scss/utils.scss";
+    @import "./assets/icons/style.css";
     @import "./scss/animations.scss";
+
+    header {
+        height: 60px;
+    }
+
+    .main-container {
+        height: 100vh;
+        width: 100vw;
+        &.header {
+            height: calc(100vh - 60px);
+        }
+    }
 
     // Reset CSS
     html {

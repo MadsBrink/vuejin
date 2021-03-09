@@ -1,18 +1,15 @@
 <template>
     <div class="form-element" :class="fieldStatus ? fieldStatus.type : ''">
         <!-- Input -->
-        <label class="form-element-checkbox">
-            <input
-                type="checkbox"
-                v-bind="$attrs"
-                :checked="modelValue"
-                @input="$emit('update:modelValue', $event.target.checked)" />
-            <svg width="20px" height="20px" viewBox="0 0 18 18">
-                <polyline points="3 9 7 14 15 4"></polyline>
-            </svg>
-            <div></div>
-            <span>{{ label }}</span>
+        <label class="form-element-label">
+            {{ label }}
         </label>
+        <input
+            type="text"
+            v-bind="$attrs"
+            :placeholder="placeholder"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)" />
 
         <!-- Status Message -->
         <span class="form-element-status" v-if="fieldStatus">
@@ -26,14 +23,15 @@
 import { fieldStatus } from '../formMixin';
 
 export default {
-    name: 'Checkbox',
+    name: 'Textfield',
     props: {
-        modelValue: Boolean,
+        modelValue: String,
         label: String,
         error: String,
         warning: String,
+        info: String,
         disabled: Boolean,
-        element: Object,
+        placeholder: String,
     },
     mixins: [fieldStatus],
 };

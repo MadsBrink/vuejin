@@ -15,10 +15,10 @@ export const fieldStatus = {
                     icon: 'icon-warning',
                 };
             }
-            if (this.element.info) {
+            if (this.info) {
                 return {
                     type: 'info',
-                    text: this.element.info,
+                    text: this.info,
                     icon: 'icon-info',
                 };
             }

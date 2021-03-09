@@ -21,7 +21,10 @@ export default {
 </script>
 <style lang="scss" scoped>
     .base-loader {
-        color: $primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
         &-small {
             width: 20px;
             height: 20px;

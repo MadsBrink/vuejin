@@ -63,7 +63,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0,0,0, 0.3);
+            background-color: rgba(0,0,0, 0.2);
         }
     }
     .base-button {
@@ -73,7 +73,7 @@ export default {
             border-radius: 10px;
             padding-left: 12px;
             &:not(.icon):not(.loading) {
-                padding: 0 20px;
+                padding: 0 30px;
             }
             .base-button-icon {
                 padding: 0 12px;
@@ -81,7 +81,7 @@ export default {
             }
         }
         &-small {
-            height: 29px;
+            height: 28px;
             font-size: 13px;
             border-radius: 4px;
             padding-left: 10px;
@@ -92,32 +92,35 @@ export default {
                 padding: 0 8px;
                 margin-left: 8px;
             }
+            :deep(.base-loader) {
+                font-size: 16px;
+            }
         }
         &-primary {
             color: $white;
-            background-color: $primary;
-            /deep/ .base-loader {
+            background-color: var(--primary);
+            :deep(.base-loader) {
                 color: $white;
             }
         }
         &-secondary {
             color: $white;
-            background-color: $secondary;
-            /deep/ .base-loader {
+            background-color: var(--secondary);
+            :deep(.base-loader) {
                 color: $white;
             }
         }
         &-tertiary {
             color: $black;
             background-color: $grey-medium;
-            /deep/ .base-loader {
+            :deep(.base-loader) {
                 color: $black;
             }
         }
         &-delete {
             color: $white;
             background-color: $error;
-            /deep/ .base-loader {
+            :deep(.base-loader) {
                 color: $white;
             }
         }
