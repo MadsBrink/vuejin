@@ -1,5 +1,5 @@
 <template>
-    <layout-one-column>
+    <layout-one>
         <template #drawer>
             <base-menu-list
                 v-model="menuActive"
@@ -7,23 +7,26 @@
         </template>
         <template #content>
             <div class="content-wrapper">
+                stuff!
+            </div>
+            <div class="content-wrapper content-wrapper-fill-height">
                 <base-table />
             </div>
         </template>
-    </layout-one-column>
+    </layout-one>
 </template>
 
 <script>
 import BaseTable from '../components/base/BaseTable.vue';
 import BaseMenuList from '../components/base/BaseMenuList.vue';
-import LayoutOneColumn from '../components/layout/LayoutOneColumn.vue';
+import LayoutOne from '../components/layout/LayoutOne.vue';
 
 export default {
     name: 'Home',
     components: {
         BaseTable,
         BaseMenuList,
-        LayoutOneColumn,
+        LayoutOne,
     },
     data() {
         return {

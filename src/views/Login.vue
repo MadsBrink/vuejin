@@ -85,7 +85,7 @@ export default {
         display: flex;
         align-items: center;
         margin: 0 20px;
-        border-radius: 10px;
+        border-radius: $border-radius-large;
         background-color: $white;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         overflow: hidden;

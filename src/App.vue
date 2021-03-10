@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
     @import "./components/form/formStyling.scss";
-    @import "./components/layout/layoutStyling.scss";
+    @import "./scss/layout.scss";
     @import "./scss/typografi.scss";
     @import "./scss/utils.scss";
     @import "./assets/icons/style.css";
@@ -57,13 +57,11 @@ export default {
         }
         &-watermark {
             font-size: 9px;
-            color: $grey-extra-dark;
             padding-left: 10px;
         }
         &-user {
             margin-left: auto;
             font-size: 24px;
-            color: $grey-extra-dark;
         }
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     }
@@ -91,6 +89,7 @@ export default {
     body, h1, h2, h3, h4, h5, h6, p, ol, ul {
         font-weight: normal;
         font-family: 'Montserrat', sans-serif;
+        color: $grey-extra-dark;
         margin: 0;
         padding: 0;
     }

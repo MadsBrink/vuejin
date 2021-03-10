@@ -1,3 +1,4 @@
+// Colors
 $black: #222222;
 $white: #ffffff;
 $grey-extra-dark: #666666;
@@ -18,3 +19,10 @@ $info-extra-light: #F5FAFD;
 $success: #419241;
 $success-light: #C4E2C4;
 $success-extra-light: #F2F8F2;
+
+// Animation
+$bezier-bounce: cubic-bezier(.47,1.64,.41,.8);
+
+// Styling
+$border-radius-large: 10px;
+$border-radius-small: 4px;

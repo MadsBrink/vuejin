@@ -58,19 +58,19 @@ export default {
         border: none;
         overflow: hidden;
         cursor: pointer;
-        .base-button-icon {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(0,0,0, 0.2);
+    }
+    @mixin button-colors($text-color, $background-color, $loader-color) {
+        color: $text-color;
+        background-color: $background-color;
+        :deep(.base-loader) {
+            color: $loader-color;
         }
     }
     .base-button {
         &-normal {
             height: 44px;
             font-size: 14px;
-            border-radius: 10px;
+            border-radius: $border-radius-large;
             padding-left: 12px;
             &:not(.icon):not(.loading) {
                 padding: 0 30px;
@@ -83,7 +83,7 @@ export default {
         &-small {
             height: 28px;
             font-size: 13px;
-            border-radius: 4px;
+            border-radius: $border-radius-small;
             padding-left: 10px;
             &:not(.icon):not(.loading) {
                 padding: 0 12px;
@@ -97,32 +97,23 @@ export default {
             }
         }
         &-primary {
-            color: $white;
-            background-color: var(--primary);
-            :deep(.base-loader) {
-                color: $white;
-            }
+            @include button-colors($white, var(--primary), $white);
         }
         &-secondary {
-            color: $white;
-            background-color: var(--secondary);
-            :deep(.base-loader) {
-                color: $white;
-            }
+            @include button-colors($white, var(--secondary), $white);
         }
         &-tertiary {
-            color: $black;
-            background-color: $grey-medium;
-            :deep(.base-loader) {
-                color: $black;
-            }
+            @include button-colors($black, $grey-medium, $black);
         }
         &-delete {
-            color: $white;
-            background-color: $error;
-            :deep(.base-loader) {
-                color: $white;
-            }
+            @include button-colors($white, $error, $white);
         }
+    }
+    .base-button-icon {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0,0,0, 0.2);
     }
 </style>

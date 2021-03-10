@@ -58,12 +58,10 @@ export default {
 </script>
 <style lang="scss" scoped>
     h6 {
-        color: $grey-extra-dark;
         padding: 14px 20px 10px;
         border-bottom: 1px solid $grey-light;
     }
     ul {
-        color: $grey-extra-dark;
         li {
             display: flex;
             align-items: center;
@@ -98,7 +96,7 @@ export default {
             width: 2px;
             height: v-bind(itemHeight);
             background-color: var(--primary);
-            transition: all 0.3s cubic-bezier(.47,1.64,.41,.8);
+            transition: top 0.3s $bezier-bounce;
         }
     }
 </style>
