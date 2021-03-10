@@ -6,11 +6,21 @@
                 :menu="menu" />
         </template>
         <template #content>
-            <div class="content-wrapper">
-                stuff!
-            </div>
-            <div class="content-wrapper content-wrapper-fill-height">
-                <base-table />
+            <div class="content">
+                <div class="content-top">
+                    <div class="content-box content-top-tabs">
+                        <span>Draft</span>
+                        <span>Submitted</span>
+                    </div>
+                    <div class="content-box content-top-settings">
+                        <span class="icon-cog"></span>
+                        <span class="icon-bookmark"></span>
+                        <span class="icon-filter"></span>
+                    </div>
+                </div>
+                <div class="content-box content-view">
+                    <base-table />
+                </div>
             </div>
         </template>
     </layout-one>
@@ -54,3 +64,53 @@ export default {
     },
 };
 </script>
+<style lang="scss" scoped>
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        &-view {
+            flex: 1;
+        }
+        &-top {
+            display: flex;
+            margin-bottom: 20px;
+            > div {
+                display: flex;
+                align-items: center;
+            }
+            &-tabs {
+                font-size: 14px;
+                padding: 0 6px;
+                span {
+                    text-align: center;
+                    padding: 8px 16px;
+                    &:not(:last-child) {
+                        border-right: 1px solid $grey-light;
+                    }
+                }
+            }
+            &-settings {
+                margin-left: auto;
+                padding: 8px 6px;
+                span {
+                    padding: 0 6px;
+                }
+            }
+        }
+    }
+    .menu {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        margin-left: 20px;
+        span {
+            display: block;
+            padding: 6px;
+            &:not(:last-child) {
+                border-bottom: 1px solid $grey-light;
+            }
+        }
+    }
+</style>

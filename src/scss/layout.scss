@@ -1,11 +1,5 @@
-.content-wrapper {
-    border-radius: $border-radius-large;
+.content-box {
     background-color: $white;
+    border-radius: $border-radius-large;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-    &-fill-height {
-        flex: 1;
-    }
-    &:not(&-fill-height) {
-        margin-bottom: 20px;
-    }
 }

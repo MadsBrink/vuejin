@@ -13,21 +13,9 @@
 
 export default {
     name: 'LayoutOne',
-    props: {
-        direction: {
-            type: String,
-            default: 'column',
-            validator(x) {
-                return ['column', 'row'].indexOf(x) !== -1;
-            },
-        },
-    },
     computed: {
         drawerEnabled() {
             return this.$slots.drawer;
-        },
-        flexDirection() {
-            return this.direction;
         },
     },
 };
@@ -43,7 +31,6 @@ export default {
         }
         &-content {
             display: flex;
-            flex-direction: v-bind(flexDirection);
             width: 100%;
             padding: 20px;
         }
