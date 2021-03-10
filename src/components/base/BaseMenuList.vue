@@ -1,21 +1,23 @@
 <template>
-    <div class="base-menu-list"
-        v-for="(list, i) in menu"
-        :key="i">
-        <h6 v-if="list.label">
-            {{ list.label }}
-        </h6>
-        <ul>
-            <li v-for="item in list.items"
-                :key="item.id"
-                :class="{ active: item === modelValue}"
-                @click="setItem($event, item)">
-                <span
-                    v-if="item.icon"
-                    :class="item.icon"></span>
-                {{ item.label }}
-            </li>
-        </ul>
+    <div class="base-menu-list" ref="menulist">
+        <div class="base-menu-list-menu"
+            v-for="(list, i) in menu"
+            :key="i">
+            <h6 v-if="list.label">
+                {{ list.label }}
+            </h6>
+            <ul>
+                <li v-for="item in list.items"
+                    :key="item.id"
+                    :class="{ active: item === modelValue}"
+                    @click="setItem($event, item)">
+                    <span
+                        v-if="item.icon"
+                        :class="item.icon"></span>
+                    {{ item.label }}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -23,7 +25,10 @@
 export default {
     name: 'BaseMenuList',
     props: {
-        menu: Object,
+        menu: {
+            type: Array,
+            required: true,
+        },
         modelValue: Object,
     },
     emits: ['update:modelValue'],
@@ -44,7 +49,7 @@ export default {
         },
     },
     mounted() {
-        const activeElement = document.querySelector('.base-menu-list .active');
+        const activeElement = this.$refs.menulist.querySelector('.active');
         if (activeElement) {
             this.setItemMarker(activeElement);
         }
@@ -81,7 +86,7 @@ export default {
             }
         }
     }
-    .base-menu-list:not(:first-child) {
+    .base-menu-list-menu:not(:first-child) {
         h6 {
             padding-top: 18px;
         }

@@ -2,15 +2,7 @@
     <div class="login">
         <div class="login-box">
             <div class="login-box-left">
-                <div class="login-box-left-content">
-                    <img class="mb-30" src="/images/login-feature.png" />
-                    <h5 class="mb-20">Some feature or message</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-                    </p>
-                </div>
+                <base-slider :slides="slides" />
             </div>
             <div class="login-box-right">
                 <h4 class="mb-20">Welcome to Vuejin</h4>
@@ -32,19 +24,44 @@
 </template>
 
 <script>
-import FormTextfield from '@/components/form/formElements/FormTextfield.vue';
 import BaseButton from '@/components/base/BaseButton.vue';
+import BaseSlider from '@/components/base/BaseSlider.vue';
+import FormTextfield from '@/components/form/formElements/FormTextfield.vue';
 
 export default {
     name: 'Login',
     components: {
-        FormTextfield,
         BaseButton,
+        BaseSlider,
+        FormTextfield,
     },
     data() {
         return {
             email: '',
             password: '',
+            slides: [
+                {
+                    image: '/images/slider-image.png',
+                    headline: 'Some feature or message',
+                    copy: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+                    color: '#fff',
+                    backgroundColor: '#3986af',
+                },
+                {
+                    image: '/images/slider-image.png',
+                    headline: 'Some feature or message',
+                    copy: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+                    color: '#fff',
+                    backgroundColor: '#333',
+                },
+                {
+                    image: '/images/slider-image.png',
+                    headline: 'Some feature or message',
+                    copy: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+                    color: '#fff',
+                    backgroundColor: '#54b170',
+                },
+            ],
         };
     },
 };
@@ -73,17 +90,8 @@ export default {
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         overflow: hidden;
         &-left {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: $white;
             width: 55%;
             height: 100%;
-            padding: 30px;
-            background-color: var(--primary);
-            img {
-                width: 250px;
-            }
         }
         &-right {
             h4 {
