@@ -26,6 +26,7 @@ export default {
         menu: Object,
         modelValue: Object,
     },
+    emits: ['update:modelValue'],
     data() {
         return {
             itemTop: null,

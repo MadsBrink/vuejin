@@ -36,5 +36,6 @@ export default {
         disabled: Boolean,
     },
     mixins: [fieldStatus],
+    emits: ['update:modelValue'],
 };
 </script>

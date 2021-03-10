@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="login-box-right">
-                <h4 class="mb-20">Welcome</h4>
+                <h4 class="mb-20">Welcome to Vuejin</h4>
                 <form-textfield type="email"
                     label="Email"
                     placeholder="Enter your email"

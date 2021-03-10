@@ -33,7 +33,7 @@ export default {
     }
     .drawer {
         height: 100%;
-        width: 280px;
+        width: 250px;
         position: relative;
         background-color: $white;
         padding: 20px 0;

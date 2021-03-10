@@ -41,6 +41,7 @@ export default {
         options: Array,
     },
     mixins: [fieldStatus],
+    emits: ['update:modelValue'],
     computed: {
         groupModel: {
             get() {

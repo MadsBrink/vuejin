@@ -34,5 +34,6 @@ export default {
         placeholder: String,
     },
     mixins: [fieldStatus],
+    emits: ['update:modelValue'],
 };
 </script>
