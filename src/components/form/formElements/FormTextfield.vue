@@ -1,5 +1,5 @@
 <template>
-    <div class="form-element" :class="fieldStatus ? fieldStatus.type : ''">
+    <div class="form-element" :class="fieldStatusClass">
         <!-- Input -->
         <label class="form-element-label">
             {{ label }}

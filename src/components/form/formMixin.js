@@ -24,6 +24,9 @@ export const fieldStatus = {
             }
             return null;
         },
+        fieldStatusClass() {
+            return this.fieldStatus ? this.fieldStatus.type : '';
+        },
     },
 };
 

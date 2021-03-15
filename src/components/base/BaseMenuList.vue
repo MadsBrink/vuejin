@@ -1,14 +1,12 @@
 <template>
     <div class="base-menu-list" ref="menulist">
         <div class="base-menu-list-menu"
-            v-for="(list, i) in menu"
-            :key="i">
+            v-for="(list, li) in menu" :key="li">
             <h6 v-if="list.label">
                 {{ list.label }}
             </h6>
             <ul>
-                <li v-for="item in list.items"
-                    :key="item.id"
+                <li v-for="(item, ii) in list.items" :key="ii"
                     :class="{ active: item === modelValue}"
                     @click="setItem($event, item)">
                     <span

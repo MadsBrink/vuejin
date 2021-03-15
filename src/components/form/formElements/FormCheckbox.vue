@@ -1,5 +1,5 @@
 <template>
-    <div class="form-element" :class="fieldStatus ? fieldStatus.type : ''">
+    <div class="form-element" :class="fieldStatusClass">
         <!-- Input -->
         <label class="form-element-checkbox">
             <input
@@ -10,8 +10,9 @@
             <svg width="20px" height="20px" viewBox="0 0 18 18">
                 <polyline points="3 9 7 14 15 4"></polyline>
             </svg>
-            <div></div>
-            <span>{{ label }}</span>
+            <span v-if="label">
+                {{ label }}
+            </span>
         </label>
 
         <!-- Status Message -->
