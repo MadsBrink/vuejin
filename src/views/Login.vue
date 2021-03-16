@@ -87,7 +87,7 @@ export default {
         margin: 0 20px;
         border-radius: $border-radius-large;
         background-color: $white;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        box-shadow: $box-shadow;
         overflow: hidden;
         &-left {
             width: 55%;

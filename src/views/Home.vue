@@ -32,7 +32,7 @@
                             <template #actions="{row}">
                                 <base-button-actions
                                     v-if="row.actions"
-                                    :row="row" />
+                                    :actions="row.actions" />
                             </template>
                         </base-table>
                     </div>
@@ -112,21 +112,36 @@ export default {
                     id: { label: '1' },
                     market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
-                    actions: { name: 'Clone' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
                 },
                 {
                     name: { label: 'Some delivery two' },
                     id: { label: '2' },
                     market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
-                    actions: { name: 'Clone' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
                 },
                 {
                     name: { label: 'Some delivery three' },
                     id: { label: '3' },
                     market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
-                    actions: { name: 'Clone' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
                 },
             ],
         };

@@ -68,6 +68,7 @@ export default {
             cursor: pointer;
             transition: background-color 0.2s;
             span {
+                font-size: 16px;
                 margin-right: 10px;
                 margin-top: -1px;
             }
