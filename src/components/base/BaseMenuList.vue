@@ -1,14 +1,14 @@
 <template>
     <div class="base-menu-list" ref="menulist">
         <div class="base-menu-list-menu"
-            v-for="(list, li) in menu" :key="li">
+            v-for="list in menu" :key="list.key">
             <h6 v-if="list.label">
                 {{ list.label }}
             </h6>
             <ul>
-                <li v-for="(item, ii) in list.items" :key="ii"
-                    :class="{ active: item === modelValue}"
-                    @click="setItem($event, item)">
+                <li v-for="item in list.items" :key="item.key"
+                    :class="{ active: item.key === modelValue}"
+                    @click="setItem($event, item.key)">
                     <span
                         v-if="item.icon"
                         :class="item.icon"></span>
@@ -27,7 +27,7 @@ export default {
             type: Array,
             required: true,
         },
-        modelValue: Object,
+        modelValue: String,
     },
     emits: ['update:modelValue'],
     data() {
@@ -37,9 +37,9 @@ export default {
         };
     },
     methods: {
-        setItem(event, item) {
+        setItem(event, key) {
             this.setItemMarker(event.target);
-            this.$emit('update:modelValue', item);
+            this.$emit('update:modelValue', key);
         },
         setItemMarker(element) {
             this.itemTop = `${element.offsetTop}px`;

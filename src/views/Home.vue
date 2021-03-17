@@ -24,8 +24,9 @@
                     </div>
                 </div>
                 <div class="content-main">
-                    <div class="content-box content-main-view">
-                        <base-table
+                    <div class="content-main-view">
+                        <base-masonry v-if="viewTypeActive === 'grid'" />
+                        <base-table v-else-if="viewTypeActive === 'list'"
                             v-model:selected="selectedCommunications"
                             :rows="rows"
                             :columns="columns">
@@ -37,7 +38,7 @@
                         </base-table>
                     </div>
                     <transition name="right-slide-in">
-                        <div class="content-box content-main-settings"
+                        <div class="content-main-settings"
                             v-if="settingActive">
                             <span @click="settingActive = null">x</span>
                         </div>
@@ -54,12 +55,14 @@ import BaseTable from '../components/base/BaseTable.vue';
 import BaseMenuList from '../components/base/BaseMenuList.vue';
 import BaseMenuPill from '../components/base/BaseMenuPill.vue';
 import BaseButtonActions from '../components/base/BaseButtonActions.vue';
+import BaseMasonry from '../components/base/BaseMasonry.vue';
 
 export default {
     name: 'Home',
     components: {
         LayoutOne,
         BaseTable,
+        BaseMasonry,
         BaseMenuPill,
         BaseMenuList,
         BaseButtonActions,
@@ -68,34 +71,36 @@ export default {
         return {
             menu: [
                 {
+                    key: 'communications',
                     label: 'Communications',
                     items: [
-                        { label: 'Standard Deliveries', icon: 'icon-bubble' },
-                        { label: 'Dynamic Content Offers', icon: 'icon-price-tag' },
+                        { key: 'deliveries', label: 'Standard Deliveries', icon: 'icon-bubble' },
+                        { key: 'offers', label: 'Dynamic Content Offers', icon: 'icon-price-tag' },
                     ],
                 },
                 {
+                    key: 'other',
                     label: 'Other',
                     items: [
-                        { label: 'Collections', icon: 'icon-folder' },
-                        { label: 'Calendar', icon: 'icon-calendar' },
+                        { key: 'collections', label: 'Collections', icon: 'icon-folder' },
+                        { key: 'calendar', label: 'Calendar', icon: 'icon-calendar' },
                     ],
                 },
             ],
-            menuActive: null,
+            menuActive: 'deliveries',
             views: [
-                { label: 'Draft' },
-                { label: 'Submitted' },
+                { key: 'draft', label: 'Draft' },
+                { key: 'submitted', label: 'Submitted' },
             ],
-            viewActive: null,
+            viewActive: 'draft',
             viewTypes: [
-                { icon: 'icon-list' },
-                { icon: 'icon-images' },
+                { key: 'list', icon: 'icon-list' },
+                { key: 'grid', icon: 'icon-images' },
             ],
-            viewTypeActive: null,
+            viewTypeActive: 'list',
             settings: [
-                { icon: 'icon-cog' },
-                { icon: 'icon-filter' },
+                { key: 'settings', icon: 'icon-cog' },
+                { key: 'filter', icon: 'icon-filter' },
             ],
             settingActive: null,
             selectedCommunications: [],
@@ -118,6 +123,10 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
                 },
                 {
                     name: { label: 'Some delivery two' },
@@ -130,6 +139,10 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
                 },
                 {
                     name: { label: 'Some delivery three' },
@@ -142,26 +155,595 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery one' },
+                    id: { label: '1' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/500',
+                        mobile: 'https://picsum.photos/200/500',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery two' },
+                    id: { label: '2' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/700',
+                        mobile: 'https://picsum.photos/200/700',
+                    },
+                },
+                {
+                    name: { label: 'Some delivery three' },
+                    id: { label: '3' },
+                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    createdDate: { label: '2021-03-10T13:39:51.353' },
+                    actions: [
+                        { key: 'clone', label: 'Clone', icon: 'icon-copy' },
+                        { key: 'changelog', label: 'Changelog', icon: 'icon-file-text2' },
+                        { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
+                        { key: 'delete', label: 'Delete', icon: 'icon-bin' },
+                    ],
+                    snapshots: {
+                        desktop: 'https://picsum.photos/200/600',
+                        mobile: 'https://picsum.photos/200/600',
+                    },
                 },
             ],
         };
-    },
-    created() {
-        [this.menuActive] = this.menu[0].items;
-        [this.viewActive] = this.views;
-        [this.viewTypeActive] = this.viewTypes;
     },
 };
 </script>
 <style lang="scss" scoped>
     .content {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
         &-top {
-            display: flex;
-            margin-bottom: 20px;
             &-bookmark {
                 display: flex;
                 align-items: center;
@@ -175,16 +757,14 @@ export default {
             }
         }
         &-main {
-            flex: 1;
-            display: flex;
-            flex-direction: row;
             &-view {
                 height: 100%;
                 width: 100%;
+                overflow-y: auto;
             }
             &-settings {
-                width: 250px;
-                margin-left: 20px;
+                width: 300px;
+                border-left: 1px solid $grey-light;
             }
         }
     }
@@ -197,6 +777,5 @@ export default {
     .right-slide-in-enter-from,
     .right-slide-in-leave-to {
         width: 0;
-        margin-left: 0;
     }
 </style>

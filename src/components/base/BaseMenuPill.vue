@@ -1,12 +1,12 @@
 <template>
     <div class="base-menu-pill content-box">
-        <template v-for="(item, i) in menu" :key="i">
+        <template v-for="item in menu" :key="item.key">
             <span class="base-menu-pill-pill"
                 :class="{
-                    active: item === modelValue,
+                    active: item.key === modelValue,
                     [item.icon]: item.icon
                 }"
-                @click="setItem(item)">
+                @click="setItem(item.key)">
                 {{ item.label }}
             </span>
         </template>
@@ -18,7 +18,7 @@ export default {
     name: 'BaseMenuPill',
     props: {
         menu: Array,
-        modelValue: Object,
+        modelValue: String,
     },
     emits: ['update:modelValue'],
     data() {
@@ -29,8 +29,8 @@ export default {
         };
     },
     methods: {
-        setItem(item) {
-            this.$emit('update:modelValue', item);
+        setItem(key) {
+            this.$emit('update:modelValue', key);
         },
     },
 };
