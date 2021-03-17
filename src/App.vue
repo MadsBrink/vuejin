@@ -65,7 +65,6 @@ export default {
         }
         box-shadow: $box-shadow;
     }
-
     .main-container {
         height: 100vh;
         width: 100vw;
@@ -80,12 +79,10 @@ export default {
         box-sizing: border-box;
         font-size: 16px;
     }
-
     *, *:before, *:after {
         box-sizing: inherit;
         outline: none;
     }
-
     body, h1, h2, h3, h4, h5, h6, p, ol, ul {
         font-weight: normal;
         font-family: 'Montserrat', sans-serif;
@@ -93,45 +90,34 @@ export default {
         margin: 0;
         padding: 0;
     }
-
     ol, ul {
         list-style: none;
     }
-
     hr {
         margin: 10px 0;
         padding: 0;
         border-top: 1px solid $grey-light;
     }
-
     input {
         font-family: 'Montserrat', sans-serif;
     }
-
     img {
         max-width: 100%;
         height: auto;
     }
 
     // Scrollbar
-    /* width */
     ::-webkit-scrollbar {
         width: 10px;
     }
-
-    /* Track */
     ::-webkit-scrollbar-track {
-        background: transparent;
+        border-left: 1px solid $grey-light;
     }
-
-    /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: var(--primary);
+        background: $grey-light;
     }
-
-    /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: $grey-medium;
     }
 
 </style>

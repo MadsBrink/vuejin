@@ -1,18 +1,18 @@
 <template>
     <div class="base-masonry" ref="baseMasonry">
-        <img src="https://picsum.photos/200/400" />
-        <img src="https://picsum.photos/200/300" />
-        <img src="https://picsum.photos/200/100" />
-        <img src="https://picsum.photos/200/200" />
-        <img src="https://picsum.photos/200/600" />
-        <img src="https://picsum.photos/200/500" />
-        <img src="https://picsum.photos/200/900" />
-        <img src="https://picsum.photos/200/800" />
-        <img src="https://picsum.photos/200/600" />
-        <img src="https://picsum.photos/200/200" />
-        <img src="https://picsum.photos/200/300" />
-        <img src="https://picsum.photos/200/500" />
-        <img src="https://picsum.photos/200/300" />
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/400" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/100" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/200" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/600" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/500" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/900" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/800" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/600" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/200" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/500" /></div>
+        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
     </div>
 </template>
 
@@ -31,14 +31,27 @@ export default {
             container: this.$refs.baseMasonry,
             trueOrder: false,
             waitForImages: false,
-            columns: 4,
+            margin: 20,
+            columns: 6,
             breakAt: {
-                1200: 4,
-                940: 3,
-                520: 2,
-                400: 1,
+                1800: 5,
+                1500: 4,
+                1200: 3,
+                900: 2,
+                600: 1,
             },
         });
     },
 };
 </script>
+<style lang="scss" scoped>
+    .base-masonry-item {
+        overflow: hidden;
+        border-radius: $border-radius-large;
+        box-shadow: $box-shadow;
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+</style>
