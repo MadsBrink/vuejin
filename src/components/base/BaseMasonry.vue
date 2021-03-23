@@ -1,18 +1,9 @@
 <template>
     <div class="base-masonry" ref="baseMasonry">
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/400" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/100" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/200" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/600" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/500" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/900" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/800" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/600" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/200" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/500" /></div>
-        <div class="base-masonry-item"><img src="https://picsum.photos/200/300" /></div>
+        <div class="base-masonry-tile"
+            v-for="tile in tiles" :key="tile.key">
+            <slot name="tile" :tile="tile" />
+        </div>
     </div>
 </template>
 
@@ -21,6 +12,12 @@ import Macy from 'macy';
 
 export default {
     name: 'BaseMasonry',
+    props: {
+        tiles: {
+            type: Array,
+            required: true,
+        },
+    },
     data() {
         return {
             macy: null,
@@ -44,14 +41,3 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped>
-    .base-masonry-item {
-        overflow: hidden;
-        border-radius: $border-radius-large;
-        box-shadow: $box-shadow;
-        img {
-            width: 100%;
-            display: block;
-        }
-    }
-</style>

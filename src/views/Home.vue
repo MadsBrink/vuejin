@@ -27,7 +27,13 @@
                     <div class="content-main-view">
                         <div class="content-main-view-grid"
                             v-if="viewTypeActive === 'grid'">
-                            <base-masonry />
+                            <base-masonry :tiles="rows">
+                                <template #tile="{tile}">
+                                    <overview-grid-tile
+                                        :name="tile.name.label"
+                                        :previews="tile.snapshots" />
+                                </template>
+                            </base-masonry>
                         </div>
                         <base-table v-else-if="viewTypeActive === 'list'"
                             v-model:selected="selectedCommunications"
@@ -57,8 +63,9 @@ import LayoutOne from '../components/layout/LayoutOne.vue';
 import BaseTable from '../components/base/BaseTable.vue';
 import BaseMenuList from '../components/base/BaseMenuList.vue';
 import BaseMenuPill from '../components/base/BaseMenuPill.vue';
-import BaseButtonActions from '../components/base/BaseButtonActions.vue';
 import BaseMasonry from '../components/base/BaseMasonry.vue';
+import BaseButtonActions from '../components/base/BaseButtonActions.vue';
+import OverviewGridTile from '../components/overview/OverviewGridTile.vue';
 
 export default {
     name: 'Home',
@@ -69,6 +76,7 @@ export default {
         BaseMenuPill,
         BaseMenuList,
         BaseButtonActions,
+        OverviewGridTile,
     },
     data() {
         return {
@@ -116,9 +124,10 @@ export default {
             ],
             rows: [
                 {
-                    name: { label: 'Some delivery one' },
+                    key: 0,
+                    name: { label: 'Some delivery with a long delivery name' },
                     id: { label: '1' },
-                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    market: { label: 'UK', image: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
                     actions: [
                         { key: 'clone', label: 'Clone', icon: 'icon-copy' },
@@ -126,15 +135,20 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
-                    snapshots: {
-                        desktop: 'https://picsum.photos/200/500',
-                        mobile: 'https://picsum.photos/200/500',
-                    },
+                    snapshots: [
+                        {
+                            key: 'desktop', label: 'Desktop', icon: 'icon-display', image: 'https://picsum.photos/200/400',
+                        },
+                        {
+                            key: 'mobile', label: 'Mobile', icon: 'icon-mobile', image: 'https://picsum.photos/200/300',
+                        },
+                    ],
                 },
                 {
+                    key: 1,
                     name: { label: 'Some delivery two' },
                     id: { label: '2' },
-                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    market: { label: 'UK', image: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
                     actions: [
                         { key: 'clone', label: 'Clone', icon: 'icon-copy' },
@@ -142,15 +156,20 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
-                    snapshots: {
-                        desktop: 'https://picsum.photos/200/700',
-                        mobile: 'https://picsum.photos/200/700',
-                    },
+                    snapshots: [
+                        {
+                            key: 'desktop', label: 'Desktop', icon: 'icon-display', image: 'https://picsum.photos/200/600',
+                        },
+                        {
+                            key: 'mobile', label: 'Mobile', icon: 'icon-mobile', image: 'https://picsum.photos/200/500',
+                        },
+                    ],
                 },
                 {
+                    key: 2,
                     name: { label: 'Some delivery three' },
                     id: { label: '3' },
-                    market: { label: 'UK', icon: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
+                    market: { label: 'UK', image: 'https://test.taskdescription.com/media/1123/flag_wunderman.svg' },
                     createdDate: { label: '2021-03-10T13:39:51.353' },
                     actions: [
                         { key: 'clone', label: 'Clone', icon: 'icon-copy' },
@@ -158,10 +177,14 @@ export default {
                         { key: 'edit', label: 'Edit', icon: 'icon-pencil2' },
                         { key: 'delete', label: 'Delete', icon: 'icon-bin' },
                     ],
-                    snapshots: {
-                        desktop: 'https://picsum.photos/200/600',
-                        mobile: 'https://picsum.photos/200/600',
-                    },
+                    snapshots: [
+                        {
+                            key: 'desktop', label: 'Desktop', icon: 'icon-display', image: 'https://picsum.photos/200/500',
+                        },
+                        {
+                            key: 'mobile', label: 'Mobile', icon: 'icon-mobile', image: 'https://picsum.photos/200/400',
+                        },
+                    ],
                 },
             ],
         };
@@ -177,6 +200,10 @@ export default {
                 margin-left: 10px;
                 padding: 8px 12px;
                 cursor: pointer;
+                transition: all 0.3s;
+                &:hover {
+                    color: var(--primary);
+                }
             }
             &-right {
                 display: flex;

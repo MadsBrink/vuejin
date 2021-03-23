@@ -31,9 +31,9 @@
                 </td>
                 <td v-for="column in columns" :key="column.key"
                     :class="column.key" >
-                    <img v-if="row[column.key].icon"
+                    <img v-if="row[column.key].image"
                         :class="column.key"
-                        :src="row[column.key].icon" >
+                        :src="row[column.key].image" >
                     {{ formatLabel(row[column.key].label, column.type) }}
                     <slot name="actions" :row="row" v-if="column.key === 'actions'" />
                 </td>

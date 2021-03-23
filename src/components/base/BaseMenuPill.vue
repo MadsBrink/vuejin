@@ -48,13 +48,16 @@ export default {
             padding: 8px 12px;
             cursor: pointer;
             z-index: 1;
-            transition: all 0.1s;
+            transition: background-color 0.1s, color 0.3s;
             &:not(:last-child) {
                 border-right: 1px solid $grey-light;
             }
             &.active {
                 color: $white;
                 background-color: var(--primary);
+            }
+            &:hover:not(.active) {
+                color: var(--primary);
             }
         }
     }
